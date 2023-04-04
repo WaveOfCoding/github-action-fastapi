@@ -1,6 +1,6 @@
-import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel
+from app.settings import settings
 
 app = FastAPI()
 
@@ -9,10 +9,7 @@ class Status(BaseModel):
     status: str = "ok"
 
 
-@app.get("/")
+@app.get(settings.main_url)
 async def status():
     return Status()
 
-
-if __name__ == "__main__":
-    uvicorn.run(app, port=8000)
